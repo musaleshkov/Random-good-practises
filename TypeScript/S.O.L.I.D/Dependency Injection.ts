@@ -1,40 +1,83 @@
 /*
     Dependency Injection is a software design concept that allows a service to be used/injected
-    in a way that is completely independent of any client consumption. ... 
+    in a way that is completely independent of any client consumption.
     Dependency injection separates the creation of a client's dependencies from the client's behavior,
     which allows program designs to be loosely coupled.
 */
 
-// Constructor Injection 
-public constructor(private readonly logger: ILogger)    { }
-
-// Property Injection 
-public set logger(logger: ILogger)  {
-    this._logger = logger;
-}
-// Method Injection 
-public sayName(logger: ILogger): void {
-    logger.log(this.name);
+// --- Interfaces ---
+interface ILogger {
+    log(message: string): void;
 }
 
-writer: IMessageWriter = new ConsoleMessageWriter(); // creating a writer 
+interface IMessageWriter {
+    write(message: string): void;
+}
 
-const salution: ISalution = new Salution(writer);// injecting it as dependancy 
+// --- Implementations ---
+class ConsoleLogger implements ILogger {
+    log(message: string): void {
+        console.log(message);
+    }
+}
 
-salution.Exclaim();// using it
+class ConsoleMessageWriter implements IMessageWriter {
+    write(message: string): void {
+        console.log(message);
+    }
+}
 
-export class Salution {
-    private readonly writer: IMessageWritter;
+// --- Constructor Injection ---
+// The dependency is injected via the constructor (most common approach)
+class Salution {
+    private readonly writer: IMessageWriter;
 
-    public Salution(writer: IMessageWritter){ // injecting it as dependyncy
-        if(write=== null || writer === undefined){
-            throw new Error("Writter cannot be undefined");
-            }
-            this.writer = writer;
+    constructor(writer: IMessageWriter) {
+        if (writer === null || writer === undefined) {
+            throw new Error("Writer cannot be undefined");
+        }
+        this.writer = writer;
     }
 
-    public void Exclaim() {
-        this.writer.write("hello world"); // using it
+    exclaim(): void {
+        this.writer.write("hello world");
+    }
+}
+
+// --- Property Injection ---
+// The dependency is injected via a setter property
+class PropertyInjectedService {
+    private _logger!: ILogger;
+
+    set logger(logger: ILogger) {
+        this._logger = logger;
     }
 
+    sayName(): void {
+        this._logger.log(this.constructor.name);
+    }
 }
+
+// --- Method Injection ---
+// The dependency is passed directly to the method that needs it
+class MethodInjectedService {
+    sayName(logger: ILogger, name: string): void {
+        logger.log(name);
+    }
+}
+
+// --- Usage ---
+const writer: IMessageWriter = new ConsoleMessageWriter();  // creating the dependency
+const greeting: Salution = new Salution(writer);             // injecting it via constructor
+greeting.exclaim();                                           // "hello world"
+
+// Property injection
+const propService = new PropertyInjectedService();
+propService.logger = new ConsoleLogger();
+propService.sayName();
+
+// Method injection
+const methodService = new MethodInjectedService();
+methodService.sayName(new ConsoleLogger(), "MethodInjectedService");
+
+export {};

@@ -15,7 +15,9 @@ class User {
 }
 
 const userOne = new User("rockstar", "elon.musk@gmail.com", "Elon", "Musk");
-const userTwo = new User("wardestroyer", "john.baiden@gmail.com", null, "Baiden");
+// Note: null is intentionally passed to show that constructors without
+// validation don't prevent bad data (fixed in the Encapsulation examples)
+const userTwo = new User("wardestroyer", "john.baiden@gmail.com", null as unknown as string, "Baiden");
 
 const displayUser = (user: User) => {
 	console.log(user.username);
@@ -32,3 +34,5 @@ displayUser({
 	firstName: "George",
 	lastName: "Eagle",
 });
+
+export {};

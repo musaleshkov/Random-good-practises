@@ -12,3 +12,5 @@ function add(a: any, b: any): any {
 
 add("Hello ", "Steve"); // returns "Hello Steve" 
 add(10, 20); // returns 30 
+
+export {};

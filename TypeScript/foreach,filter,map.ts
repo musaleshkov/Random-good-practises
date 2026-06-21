@@ -1,32 +1,44 @@
-// ForEach
-const forEach: (arr: number[], fn: (a: number) => void) => void = (arr: number[], fn: (a: number) => void): void => {
-  for (const item of arr) {
-    // Call the function
-    fn(item);
-  }
-};
+// TypeScript generics make these functions truly reusable
+// (the original version was hardcoded to `number[]` only)
 
-// Filter
-const filter: (arr: number[], checkFn: (a: number) => boolean) => number[] = (arr: number[], checkFn: (a: number) => boolean): number[] => {
-  const tempArr: number[] = [];
-  for (const item of arr) {
-    if (checkFn(item)) {
-      tempArr.push(item);
+// ForEach - generic version
+const forEach = <T>(arr: T[], fn: (item: T) => void): void => {
+    for (const item of arr) {
+        fn(item);
     }
-  }
-
-  return tempArr;
 };
 
-// Map
-const map: (arr: number[], modifyFn: (a: number) => number) => number[] = (arr: number[], modifyFn: (a: number) => number): number[] => {
-  const tempArr: number[] = [];
-  for (const item of arr) {
-    const modified: number = modifyFn(item);
-    tempArr.push(modified);
-  }
-
-  return tempArr;
+// Filter - generic version
+const filter = <T>(arr: T[], checkFn: (item: T) => boolean): T[] => {
+    const tempArr: T[] = [];
+    for (const item of arr) {
+        if (checkFn(item)) {
+            tempArr.push(item);
+        }
+    }
+    return tempArr;
 };
 
+// Map - generic version
+const map = <T, U>(arr: T[], modifyFn: (item: T) => U): U[] => {
+    const tempArr: U[] = [];
+    for (const item of arr) {
+        tempArr.push(modifyFn(item));
+    }
+    return tempArr;
+};
+
+// Usage examples
 forEach([1, 2, 3], console.log);
+forEach(["a", "b", "c"], (s) => console.log(s.toUpperCase()));
+
+const evens = filter([1, 2, 3, 4, 5, 6], (n) => n % 2 === 0);
+console.log("Even numbers:", evens);
+
+const doubled = map([1, 2, 3], (n) => n * 2);
+console.log("Doubled:", doubled);
+
+const lengths = map(["hello", "world"], (s) => s.length);
+console.log("Lengths:", lengths);
+
+export {};

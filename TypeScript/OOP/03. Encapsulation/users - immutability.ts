@@ -1,15 +1,15 @@
 class User {
-  private _username: string;
+  private _username!: string;
   private readonly _email: string;
 
   constructor(username: string, email: string) {
-    this.username = username;
-
     if (!email) {
       throw new Error('User email cannot be empty!');
     }
-
     this._email = email;
+
+    // Set username via setter AFTER email validation passes
+    this.username = username;
   }
 
   public get username(): string {

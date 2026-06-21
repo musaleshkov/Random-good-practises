@@ -1,13 +1,20 @@
 class Television {
-    private _hight: number;
+    private _height: number;
     private _width: number;
     private _screenSize: number;
     private _maxVolume: number;
     private _volume: number;
     private _power: boolean;
-    
-    public constructor(hight: number, width: number, screenSize?: number, maxVolume?: number, volume?: number, power?: boolean) {
-        this._hight = hight;
+
+    public constructor(
+        height: number,
+        width: number,
+        screenSize: number = 32,
+        maxVolume: number = 50,
+        volume: number = 10,
+        power: boolean = false
+    ) {
+        this._height = height;
         this._width = width;
         this._screenSize = screenSize;
         this._maxVolume = maxVolume;
@@ -15,8 +22,7 @@ class Television {
         this._power = power;
     }
 
-
-    public channelTunning(channel: number) {
+    public channelTunning(channel: number): number {
         switch (channel) {
             case 1: return 34.56;
             case 2: return 54.89;
@@ -25,15 +31,15 @@ class Television {
         }
         return 0;
     }
-    public increaseVolume() {
+    public increaseVolume(): number {
         if (this._maxVolume > this._volume) this._volume++;
         return this._volume;
     }
-    public decreaseVolume() {
+    public decreaseVolume(): number {
         if (0 < this._volume) this._volume--;
         return this._volume;
     }
-    public powerSwitch() {
+    public powerSwitch(): void {
         this._power = !this._power;
     }
 }
@@ -42,4 +48,6 @@ television.powerSwitch();
 television.channelTunning(2);
 television.increaseVolume();
 television.decreaseVolume();
-// television.width = 12; // error
+// television._width = 12; // error - private property
+
+export {};

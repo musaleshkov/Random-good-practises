@@ -1,8 +1,8 @@
 /*
-	is-a relation ship dog-is-animal
-	has-a - compassion object to the dog
-	derived all protected and public from base class
-	high coupling here
+	is-a relationship: dog-is-a-mammal
+	has-a: composition (object contained within the dog)
+	Derived class inherits all protected and public members from base class.
+	Note: high coupling exists in this pattern.
 */
 class Mammal {
 	private _age: number;
@@ -20,14 +20,14 @@ class Mammal {
 }
 
 class Dog extends Mammal {
-	private _bread: string;
-	public constructor(age: number, bread: string) {
+	private _breed: string;
+	public constructor(age: number, breed: string) {
 		super(age);
-		this._bread = bread;
+		this._breed = breed;
 	}
 
-	public get bread(): string {
-		return (this._bread = bread);
+	public get breed(): string {
+		return this._breed;
 	}
 
 	public wagTail(): void {
@@ -39,3 +39,10 @@ class Dog extends Mammal {
 		super.sleep();
 	}
 }
+
+const myDog = new Dog(3, "Golden Retriever");
+console.log(`Age: ${myDog.age}, Breed: ${myDog.breed}`);
+myDog.sleep();
+myDog.wagTail();
+
+export {};

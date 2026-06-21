@@ -34,5 +34,7 @@ const dog = new Dog();
 const animals: IAnimal[] = [cat, dog];
 
 animals.forEach((animal: IAnimal) => {
-	animal.eat;
+	animal.eat();
 });
+
+export {};

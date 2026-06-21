@@ -27,3 +27,5 @@ displayUser({
   username: 'timeywimey',
   email: 'david.tennant@gmail.com',
 });
+
+export {};

@@ -1,9 +1,11 @@
 class User {
-	public username: string;
-	public email: string;
+	// ! = definite assignment assertion: these are set after construction
+	// (part of the "noob" lesson — classes without constructors)
+	public username!: string;
+	public email!: string;
 
-	public firstName: string;
-	public lastName: string;
+	public firstName!: string;
+	public lastName!: string;
 }
 
 const userOne = new User();
@@ -33,3 +35,5 @@ displayUser({
 	firstName: "George",
 	lastName: "Eagle",
 } as User);
+
+export {};

@@ -1,6 +1,10 @@
 class Person {
 	name: string;
 
+	constructor(name: string) {
+		this.name = name;
+	}
+
 	eat(): void {
 		console.log(`${this.name} eats when hungry.`);
 	}
@@ -11,10 +15,9 @@ class Student extends Person {
 	rollNumber: number;
 
 	// constructors
-	constructor(rollNumber: number, name1: string) {
-		super(); // calling Parent's constructor
+	constructor(rollNumber: number, name: string) {
+		super(name); // calling Parent's constructor
 		this.rollNumber = rollNumber;
-		this.name = name1;
 	}
 
 	// functions
@@ -28,7 +31,9 @@ class Student extends Person {
 	}
 }
 
-var student1 = new Student(2, "Rohit");
+const student1 = new Student(2, "Rohit");
 
 student1.displayInformation();
 student1.eat();
+
+export {};
