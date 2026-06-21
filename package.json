@@ -1,0 +1,25 @@
+{
+  "name": "random-good-practises",
+  "version": "1.0.0",
+  "description": "A collection of good software development practices demonstrated across 6 languages",
+  "private": true,
+  "scripts": {
+    "test": "npm run test:js && npm run test:python",
+    "test:js": "node __tests__/javascript/1-logic.test.js",
+    "test:python": "python __tests__/python/test_list_comprehensions.py",
+    "test:go": "go run Go/01_goroutines_channels.go && go run Go/02_interfaces.go && go run Go/03_context_and_embedding.go",
+    "test:java": "javac Java/01_Generics.java && java GenericsExample && javac Java/02_Streams.java && java StreamsExample && javac Java/03_CompletableFuture.java && java CompletableFutureExample && javac Java/04_VirtualThreadsAndRecords.java && java VirtualThreadsAndRecords",
+    "test:php": "php PHP/01_array_functions.php && php PHP/02_generators_traits.php && php PHP/03_enums_and_match.php",
+    "lint": "eslint TypeScript/**/*.ts JavaScript/**/*.js --max-warnings 0",
+    "typecheck": "tsc --noEmit"
+  },
+  "devDependencies": {
+    "@typescript-eslint/eslint-plugin": "^7.0.0",
+    "@typescript-eslint/parser": "^7.0.0",
+    "eslint": "^8.56.0",
+    "eslint-plugin-react": "^7.33.0",
+    "eslint-plugin-react-hooks": "^4.6.0",
+    "typescript": "^5.3.0"
+  },
+  "license": "MIT"
+}

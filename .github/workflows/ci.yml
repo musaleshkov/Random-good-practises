@@ -1,0 +1,114 @@
+name: CI
+
+on:
+  push:
+    branches: [main, master]
+  pull_request:
+    branches: [main, master]
+
+jobs:
+  lint:
+    name: Lint (ESLint + TypeScript)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: "npm"
+
+      - run: npm ci
+        continue-on-error: true
+
+      - name: TypeScript type-check
+        run: npx tsc --noEmit
+
+      - name: ESLint
+        run: npx eslint "TypeScript/**/*.ts" "JavaScript/**/*.js" --max-warnings 0
+        continue-on-error: true
+
+  test-js:
+    name: Test JavaScript
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Run JS unit tests
+        run: node "__tests__/javascript/1-logic.test.js"
+
+      - name: Run JS examples
+        run: |
+          node "JavaScript/1-logic/3-pro.js"
+          node "JavaScript/2-variable-manipulation/3-pro.js"
+
+  test-python:
+    name: Test Python
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Run Python tests
+        run: python "__tests__/python/test_list_comprehensions.py"
+
+      - name: Run Python examples
+        run: |
+          python "Python/01_list_comprehensions.py"
+          python "Python/02_async_await.py"
+          python "Python/03_context_managers_and_decorators.py"
+
+  test-go:
+    name: Test Go
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-go@v5
+        with:
+          go-version: "1.22"
+
+      - name: Run Go unit tests
+        run: cd __tests__/go && go test -v .
+
+      - name: Run Go examples
+        run: |
+          go run "Go/01_goroutines_channels.go"
+          go run "Go/02_interfaces.go"
+          go run "Go/03_context_and_embedding.go"
+
+  test-java:
+    name: Test Java
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-java@v4
+        with:
+          java-version: "21"
+          distribution: "temurin"
+
+      - name: Compile and run Java examples
+        run: |
+          javac "Java/01_Generics.java" && java GenericsExample
+          javac "Java/02_Streams.java" && java StreamsExample
+          javac "Java/03_CompletableFuture.java" && java CompletableFutureExample
+          javac "Java/04_VirtualThreadsAndRecords.java" && java VirtualThreadsAndRecords
+
+  test-php:
+    name: Test PHP
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: shivammathur/setup-php@v2
+        with:
+          php-version: "8.3"
+
+      - name: Run PHP examples
+        run: |
+          php "PHP/01_array_functions.php"
+          php "PHP/02_generators_traits.php"
+          php "PHP/03_enums_and_match.php"

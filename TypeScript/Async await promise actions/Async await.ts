@@ -1,6 +1,6 @@
-// Basic
-export const getFruit = async (name) => {
-	const fruits = {
+// Basic async function returning a Promise
+export const getFruit = async (name: string): Promise<string | undefined> => {
+	const fruits: Record<string, string> = {
 		pineapple: "🍍",
 		peach: "🍑",
 		strawberry: "🍓",
@@ -12,4 +12,9 @@ export const getFruit = async (name) => {
 getFruit("peach").then(console.log);
 
 // Async + Await
-export const makeSmoothie = async () => [await getFruit("pineapple"), await getFruit("strawberry")];
+export const makeSmoothie = async (): Promise<string[]> => [
+	await getFruit("pineapple") as string,
+	await getFruit("strawberry") as string,
+];
+
+export {};

@@ -1,16 +1,23 @@
-const readline = require('readline')
+const readline = require('readline');
+
+// Create ONE shared readline interface (reused across questions)
+const readlineInterface = readline.createInterface({
+	input: process.stdin,
+	output: process.stdout,
+});
 
 function askQuestion(question) {
-  const readlineInterface = readline.createInterface({
-    input: process.stdin,
-    output: process.stdout
-  })
-  return new Promise(resolve => {
-    readlineInterface.question(question, answer => {
-      resolve(answer)
-      readlineInterface.close()
-    })
-  })
+	return new Promise((resolve, reject) => {
+		readlineInterface.question(question, (answer) => {
+			resolve(answer);
+		});
+	});
 }
 
-module.exports = askQuestion
+// Clean up when done
+function closeReadline() {
+	readlineInterface.close();
+}
+
+module.exports = askQuestion;
+module.exports.close = closeReadline;

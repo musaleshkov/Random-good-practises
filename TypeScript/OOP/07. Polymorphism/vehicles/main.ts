@@ -4,11 +4,26 @@ import { IStartable } from './contracts/startable.interface';
 import { Boat } from './models/boat.model';
 import { Car } from './models/car.model';
 
-const boat = new Boat();
-const car = new Car();
+// Polymorphism: same interface, different behavior
+const titanic = new Boat('Titanic');
+const ferrari = new Car('Ferrari');
 
-const moveables: IMoveable[] = [boat, car];
-const startables: IStartable[] = [boat, car];
+// Polymorphic collection — both are IMoveable AND IStartable
+const vehicles: (IMoveable & IStartable)[] = [titanic, ferrari];
 
-startables.forEach((startable) => startable.start());
-moveables.forEach((moveable) => moveable.move());
+console.log('=== Starting all vehicles ===');
+vehicles.forEach((v) => v.start());
+
+console.log('\n=== Moving all vehicles ===');
+vehicles.forEach((v) => v.move());
+
+// Polymorphic function — works with any IStartable
+function performSafetyCheck(vehicle: IStartable): void {
+  console.log(`\nSafety check: fuel type = ${vehicle.getFuelType()}`);
+  vehicle.start();
+}
+
+performSafetyCheck(titanic);
+performSafetyCheck(ferrari);
+
+export {};

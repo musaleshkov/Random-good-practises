@@ -1,10 +1,16 @@
 import { getFruit } from "./Async await";
 
-const badSmoothie = async () => {
+const badSmoothie = async (): Promise<string[] | string> => {
 	try {
-		return await Promise.all([getFruit("pineapple"), getFruit("strawberry")]);
+		return await Promise.all([
+			getFruit("pineapple") as Promise<string>,
+			getFruit("strawberry") as Promise<string>,
+		]);
 	} catch (err) {
-		console.log(err);
-		throw `It's broken!`;
+		console.error("Smoothie failed:", err);
+		// Best practice: throw an Error object, not a string
+		throw new Error(`It's broken! Cause: ${err}`);
 	}
 };
+
+export {};

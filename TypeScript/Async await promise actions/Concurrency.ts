@@ -1,12 +1,17 @@
-import { getFruit } from "./3-async-await";
+import { getFruit } from "./Async await";
 
-const makeSmoothieFaster = async () =>
-	await Promise.all([getFruit("pineapple"), getFruit("strawberry")]);
+const makeSmoothieFaster = async (): Promise<string[]> =>
+	await Promise.all([getFruit("pineapple") as Promise<string>, getFruit("strawberry") as Promise<string>]);
 
-const fruitRace = async () => await Promise.race([getFruit("pineapple"), getFruit("strawberry")]);
+const fruitRace = async (): Promise<string> =>
+	await Promise.race([getFruit("pineapple") as Promise<string>, getFruit("strawberry") as Promise<string>]);
+
+const log = (value: unknown): void => console.log(value);
 
 fruitRace().then(log);
 fruitRace().then(log);
 fruitRace().then(log);
 fruitRace().then(log);
 fruitRace().then(log);
+
+export {};

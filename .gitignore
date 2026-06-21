@@ -1,0 +1,63 @@
+# Dependencies
+node_modules/
+.pnp
+.pnp.js
+
+# Build output
+dist/
+build/
+*.tsbuildinfo
+
+# Compiled TypeScript (keep .ts source only)
+TypeScript/**/*.js
+TypeScript/**/*.js.map
+!TypeScript/**/*.ts
+
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+
+# Java
+*.class
+*.jar
+*.war
+
+# Go
+*.exe
+*.test
+*.out
+
+# PHP
+vendor/
+
+# React CRA projects
+JavaScript/5-react-state-update/node_modules/
+JavaScript/5-react-state-update/build/
+JavaScript/6-react-use-effect/node_modules/
+JavaScript/6-react-use-effect/build/
+JavaScript/7-react-lists/node_modules/
+JavaScript/7-react-lists/build/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Environment
+.env
+.env.local
+.env.*.local
+
+# Logs
+*.log
+npm-debug.log*
